@@ -1,0 +1,151 @@
+@import "tailwindcss";
+/* slow spin animation */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 30s linear infinite;
+}
+
+/* glow effect */
+.glow {
+  text-shadow: 0 0 8px #a855f7, 0 0 20px #a855f7, 0 0 40px #a855f7;
+}
+/* shooting stars */
+@keyframes shooting-top-left {
+  0% {
+    transform: translate(0, 0) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(300px, 300px) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+@keyframes shooting-top-right {
+  0% {
+    transform: translate(0, 0) rotate(-45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-300px, 300px) rotate(-45deg);
+    opacity: 0;
+  }
+}
+
+@keyframes shooting-bottom-left {
+  0% {
+    transform: translate(0, 0) rotate(-45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(300px, -300px) rotate(-45deg);
+    opacity: 0;
+  }
+}
+
+@keyframes shooting-bottom-right {
+  0% {
+    transform: translate(0, 0) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-300px, -300px) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+.shooting-star {
+  position: absolute;
+  width: 2px;
+  height: 100px;
+  background: linear-gradient(45deg, white, transparent);
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+}
+
+.shooting-top-left {
+  animation: shooting-top-left 1.2s ease-out forwards;
+}
+
+.shooting-top-right {
+  animation: shooting-top-right 1.2s ease-out forwards;
+}
+
+.shooting-bottom-left {
+  animation: shooting-bottom-left 1.2s ease-out forwards;
+}
+
+.shooting-bottom-right {
+  animation: shooting-bottom-right 1.2s ease-out forwards;
+}
+/* for 3D motion */
+.skill-icon-glow {
+  box-shadow: 0 0 8px #a855f7, 0 0 25px #a855f7;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+@media (max-width: 768px) {
+  .skill-icon-glow {
+    width: 60px !important;
+    height: 60px !important;
+  }
+}
+
+
+/* Optional: add slight floating motion */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+/* workexperience */
+/* Add in global.css or tailwind config */
+.glow-title {
+  text-shadow: 0 0 8px #9333ea, 0 0 16px #9333ea;
+}
+
+/* projects */
+/* Optional for shine hover (CSS only version) */
+.shine:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-20deg);
+  animation: shine 0.8s forwards;
+}
+
+@keyframes shine {
+  to {
+    left: 125%;
+  }
+}
+/* to remove autofill bg white */
+input:-webkit-autofill,
+textarea:-webkit-autofill {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: white !important;
+  /* box-shadow: 0 0 0px 1000px #100724 inset !important; */
+}
+
+
+
+
