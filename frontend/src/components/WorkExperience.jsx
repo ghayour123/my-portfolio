@@ -53,7 +53,7 @@ const WorkExperience = () => {
             </motion.h3>
 
             <p className="text-lg text-purple-200 font-medium mb-4">
-              MERN-Stack Intern - 6 months
+              MERN-Stack Developer - 1 Year
             </p>
 
             <motion.ul

@@ -117,14 +117,14 @@ const About = () => {
           — where I honed my fundamentals and explored full-stack development.
         </p>
       </motion.div>
-      <motion.a
+      {/* <motion.a
         href="https://drive.google.com/uc?export=download&id=1c_m-g3Al0OJ6zVev0dlEZBZy3YGduUXA"
         target="_blank"
         rel="noopener noreferrer"
         className="mt-10 inline-flex items-center gap-2 px-6 py-3 text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 rounded-lg font-semibold transition duration-300 shadow-md hover:shadow-lg z-10"
       >
         📄 Download My Resume
-      </motion.a>
+      </motion.a> */}
     </section>
   );
 };

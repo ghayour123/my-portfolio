@@ -145,6 +145,18 @@ textarea:-webkit-autofill {
   -webkit-text-fill-color: white !important;
   /* box-shadow: 0 0 0px 1000px #100724 inset !important; */
 }
+html, body {
+  overflow-x: hidden !important;
+  width: 100% !important;
+  position: relative;
+}
+
+body {
+  overscroll-behavior-x: none; /* Prevents horizontal momentum scroll */
+  -webkit-overflow-scrolling: touch;
+}
+
+
 
 
 

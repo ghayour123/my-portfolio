@@ -26,8 +26,6 @@ function App() {
       <Contact />
 
       <Footer />
-
-      {/* <section id="home"></section> */}
     </div>
   );
 }
