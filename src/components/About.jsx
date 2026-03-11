@@ -1,16 +1,52 @@
+/**
+ * About.jsx
+ * CHANGE: Removed profile picture (replaced with Core Expertise cards);
+ *         removed Download CV/signature; added CTA block (availability + Get in Touch).
+ * WHY: Industry-standard About: stats followed by clear next-step CTA to contact.
+ * DEPS: framer-motion. Related: Hero, Services, Contact, Footer.
+ */
+
 import React from "react";
 import { motion } from "framer-motion";
-import heroImg from "/assets/ghayour.jpeg";
 
-const skillBadges = [
-  { name: "Frontend Development", color: "golden" },
-  { name: "Backend Development", color: "white" },
-  { name: "Web Application", color: "golden" },
-  { name: "Database Management", color: "white" },
-  { name: "Responsive Design", color: "golden" },
-  { name: "Full Stack Solutions", color: "white" },
-  { name: "API Development", color: "golden" },
-  { name: "Cloud Services", color: "white" }
+// --- Core expertise cards (industry-standard "value props" for About section) ---
+const coreExpertise = [
+  {
+    title: "Full Stack Development",
+    description: "End-to-end solutions from UI to database and APIs.",
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+      </svg>
+    ),
+  },
+  {
+    title: "Clean & Scalable Code",
+    description: "Maintainable architecture and best practices.",
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Modern Tech Stack",
+    description: "React, Node, databases, and cloud-ready deployments.",
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Delivery on Time",
+    description: "Clear communication and reliable project delivery.",
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+  },
 ];
 
 const About = () => {
@@ -37,81 +73,32 @@ const About = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           
-          {/* Left Side - Profile Picture with Yellow Circle */}
+          {/* Left Side - Core Expertise (industry-standard value propositions) */}
           <motion.div
-            className="relative flex justify-center lg:justify-start"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            {/* Orange Circle Background */}
-            <div className="relative w-96 h-96 lg:w-[500px] lg:h-[500px]">
-              {/* Main Orange Circle */}
-              <div className="absolute inset-0 rounded-full shadow-2xl bg-transparent">
-                {/* Profile Picture */}
-                <div className="absolute inset-8 bg-white rounded-full overflow-hidden shadow-xl">
-                  <img
-                    src={heroImg}
-                    alt="Ghayour Mehdi Khan"
-                    className="w-full h-full object-cover"
-                  />
+            {coreExpertise.map((item, index) => (
+              <motion.div
+                key={index}
+                className="rounded-xl p-5 border-2 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
+                style={{ borderColor: "#FDAE1B" }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.02 }}
+              >
+                <div className="mb-3" style={{ color: "#FDAE1B" }}>
+                  {item.icon}
                 </div>
-              </div>
-              
-              {/* Skill Badges positioned around the circle */}
-              {skillBadges.map((badge, index) => {
-                const angle = (index * 45) - 90; // Start from top, distribute evenly
-                const radius = 280; // Distance from center
-                const x = Math.cos((angle * Math.PI) / 180) * radius;
-                const y = Math.sin((angle * Math.PI) / 180) * radius;
-                
-                return (
-                  <motion.div
-                    key={index}
-                    className={`absolute px-4 py-2 rounded-full text-sm font-semibold shadow-lg ${
-                      badge.color === 'orange' 
-                        ? 'bg-orange-500 text-green-800' 
-                        : badge.color === 'custom'
-                        ? 'bg-green-800'
-                        : badge.color === 'golden'
-                        ? 'bg-green-800'
-                        : badge.color === 'white'
-                        ? 'bg-white'
-                        : 'bg-green-800 text-white'
-                    }`}
-                    style={{
-                      left: `calc(50% + ${x}px)`,
-                      top: `calc(50% + ${y}px)`,
-                      transform: 'translate(-50%, -50%)',
-                      ...(badge.color === 'custom' && { 
-                        backgroundColor: '#FF6900', 
-                        color: 'white' 
-                      }),
-                      ...(badge.color === 'golden' && { 
-                        backgroundColor: '#FDAE1B', 
-                        color: 'white' 
-                      }),
-                      ...(badge.color === 'white' && { 
-                        backgroundColor: 'white', 
-                        color: '#15803d' 
-                      })
-                    }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ 
-                      duration: 0.6, 
-                      delay: 0.3 + (index * 0.1),
-                      ease: "easeOut"
-                    }}
-                    viewport={{ once: true }}
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    {badge.name}
-                  </motion.div>
-                );
-              })}
-            </div>
+                <h3 className="text-white font-semibold text-lg mb-2">{item.title}</h3>
+                <p className="text-white/90 text-sm leading-relaxed">{item.description}</p>
+              </motion.div>
+            ))}
           </motion.div>
 
           {/* Right Side - About Me Content */}
@@ -155,32 +142,23 @@ const About = () => {
               </div>
             </div>
 
-            {/* Download CV Button */}
-            <motion.a
-              href="https://drive.google.com/uc?export=download&id=1c_m-g3Al0OJ6zVev0dlEZBZy3YGduUXA"
-              target="_blank"
-              rel="noopener noreferrer"
-                     className="inline-flex items-center bg-green-800 text-white font-semibold px-8 py-4 rounded-xl border-2 shadow-lg transition-all duration-300 hover:bg-green-700 hover:scale-105"
-                     style={{ borderColor: '#FDAE1B' }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="flex-1">Download CV</span>
-              <div className="w-10 h-10 rounded-full flex items-center justify-center ml-4" style={{ backgroundColor: '#FDAE1B' }}>
-                <svg className="w-5 h-5 text-green-800" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
-                </svg>
-              </div>
-            </motion.a>
-
-            {/* Signature */}
-            <div className="mt-8">
-              <span 
-                className="text-2xl font-bold"
-                style={{ color: '#FDAE1B', fontFamily: 'cursive' }}
+            {/* CTA block: availability line + Get in Touch (industry-standard pattern) */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-6 gap-4">
+              <p className="text-white/90 text-base max-w-md">
+                Open to new projects and collaborations. Let&apos;s build something great together.
+              </p>
+              <motion.a
+                href="#contact"
+                className="inline-flex items-center justify-center gap-2 bg-transparent text-white font-semibold px-6 py-3 rounded-xl border-2 shrink-0 transition-all duration-300 hover:bg-white/10"
+                style={{ borderColor: "#FDAE1B", color: "#FDAE1B" }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
               >
-                Ghayour Mehdi Khan
-              </span>
+                Get in Touch
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </motion.a>
             </div>
           </motion.div>
         </div>

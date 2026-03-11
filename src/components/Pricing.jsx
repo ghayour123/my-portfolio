@@ -28,7 +28,7 @@ const Pricing = () => {
     {
       id: 2,
       title: "Monthly",
-      price: "$800",
+      price: "$600",
       period: "/ Month",
       cardStyle: "bg-white text-green-800",
       titleStyle: "text-green-800",
@@ -50,7 +50,7 @@ const Pricing = () => {
     {
       id: 3,
       title: "Quarterly",
-      price: "$2,400",
+      price: "$1,500",
       period: "/ Quarter",
       cardStyle: "bg-green-700 text-white shadow-xl",
       titleStyle: "text-white",

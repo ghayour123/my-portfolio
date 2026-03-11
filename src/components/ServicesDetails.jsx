@@ -103,7 +103,7 @@ const ServicesDetails = () => {
         packages: [
           {
             name: "Basic Frontend",
-            price: "$500 - $1,500",
+            price: "$100 - $200",
             features: [
               "Responsive Design",
               "Basic Animations",
@@ -113,7 +113,7 @@ const ServicesDetails = () => {
           },
           {
             name: "Advanced Frontend", 
-            price: "$1,500 - $3,500",
+            price: "$200 - $500",
             features: [
               "Custom React Components",
               "State Management",
@@ -124,7 +124,7 @@ const ServicesDetails = () => {
           },
           {
             name: "Enterprise Frontend",
-            price: "$3,500+",
+            price: "$500+",
             features: [
               "Complex Application Architecture",
               "Advanced Animations",
@@ -250,7 +250,7 @@ const ServicesDetails = () => {
         packages: [
           {
             name: "API Development",
-            price: "$800 - $2,000",
+            price: "$100 - $200",
             features: [
               "RESTful API Design",
               "Database Integration",
@@ -260,7 +260,7 @@ const ServicesDetails = () => {
           },
           {
             name: "Full Backend System",
-            price: "$2,000 - $5,000",
+            price: "$200 - $500",
             features: [
               "Complete Backend Architecture",
               "Advanced Authentication",
@@ -271,7 +271,7 @@ const ServicesDetails = () => {
           },
           {
             name: "Enterprise Backend",
-            price: "$5,000+",
+            price: "$500+",
             features: [
               "Microservices Architecture",
               "Advanced Security",
@@ -314,7 +314,7 @@ const ServicesDetails = () => {
       overview: {
         icon: (
           <div className="w-16 h-16 bg-white border-2 border-green-800 rounded-full flex items-center justify-center relative shadow-lg">
-            <div className="w-12 h-12 bg-green-800 rounded flex items-center justify-center">
+            <div className="w-12 h-12 bg-green-800 rounded-full flex items-center justify-center">
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" style={{ color: '#FDAE1B' }}>
                 <path d="M12 3C7.58 3 4 4.79 4 7s3.58 4 8 4 8-1.79 8-4-3.58-4-8-4zM4 9v3c0 2.21 3.58 4 8 4s8-1.79 8-4V9c0 2.21-3.58 4-8 4s-8-1.79-8-4zm0 5v3c0 2.21 3.58 4 8 4s8-1.79 8-4v-3c0 2.21-3.58 4-8 4s-8-1.79-8-4z"/>
               </svg>
@@ -396,7 +396,7 @@ const ServicesDetails = () => {
         packages: [
           {
             name: "Database Setup",
-            price: "$300 - $800",
+            price: "$100 - $200",
             features: [
               "Database Design",
               "Schema Implementation",
@@ -406,7 +406,7 @@ const ServicesDetails = () => {
           },
           {
             name: "Database Optimization",
-            price: "$800 - $2,000",
+            price: "$200 - $500",
             features: [
               "Performance Analysis",
               "Query Optimization",
@@ -416,7 +416,7 @@ const ServicesDetails = () => {
           },
           {
             name: "Full Database Management",
-            price: "$2,000+",
+            price: "$500+",
             features: [
               "Complete Database Solution",
               "Migration Services",

@@ -84,28 +84,19 @@ const Hero = () => {
                 </svg>
               </div>
             </motion.a>
-            
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center border-2 border-gray-400 text-gray-700 hover:border-gray-600 hover:text-gray-900 font-semibold px-8 py-4 rounded-full transition-all duration-300 bg-white"
-            >
-              <span>Hire Me</span>
-            </motion.a>
           </motion.div>
         </motion.div>
 
-        {/* Image + Decorative Elements Section */}
+        {/* Image + Decorative Elements Section - responsive pic and arc for all screens */}
         <motion.div 
-          className="relative w-full flex justify-center items-center"
+          className="relative w-full flex justify-center items-center min-h-[240px] sm:min-h-[280px] md:min-h-[320px] lg:min-h-[360px]"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.7 }}
         >
-          {/* Large Orange Arc Background */}
+          {/* Orange arc (line around pic) - scales with viewport so it never overflows */}
           <motion.div
-            className="absolute w-[500px] h-[500px] border-8 rounded-full"
+            className="absolute w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] md:w-[420px] md:h-[420px] lg:w-[500px] lg:h-[500px] border-4 sm:border-6 lg:border-8 rounded-full"
             style={{
               borderLeftColor: '#FDAE1B',
               borderTopColor: 'transparent',
@@ -118,14 +109,14 @@ const Hero = () => {
             transition={{ duration: 1, delay: 1 }}
           />
 
-          {/* Main Image */}
+          {/* Profile image - responsive sizes so it fits on small phones and scales up on desktop */}
           <motion.img
             src={heroImg}
             alt="Ghayour Mehdi Khan - Full Stack Developer"
             initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: imageLoaded ? 1 : 0, scale: imageLoaded ? 1 : 0.7 }}
             transition={{ duration: 1 }}
-            className={`relative w-[300px] md:w-[350px] h-[300px] md:h-[350px] object-cover rounded-full shadow-2xl z-10 ${imageLoaded ? 'block' : 'hidden'}`}
+            className={`relative w-[220px] h-[220px] sm:w-[260px] sm:h-[260px] md:w-[300px] md:h-[300px] lg:w-[350px] lg:h-[350px] object-cover rounded-full shadow-2xl z-10 ${imageLoaded ? 'block' : 'hidden'}`}
             onLoad={() => setImageLoaded(true)}
           />
 

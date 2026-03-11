@@ -66,30 +66,34 @@ const FAQ = () => {
               viewport={{ once: true }}
             >
               <button
-                className="w-full px-6 py-4 text-left flex items-center justify-between"
+                className="w-full px-4 sm:px-6 py-4 text-left flex items-center justify-between gap-3 sm:gap-4"
                 onClick={() => setOpenIndex(openIndex === index ? -1 : index)}
               >
                 <span
-                  className={`text-lg font-semibold ${
+                  className={`text-base sm:text-lg font-semibold flex-1 min-w-0 ${
                     openIndex === index ? 'text-gray-900' : 'text-white'
                   }`}
                 >
                   {faq.question}
                 </span>
+                {/* Plus/Minus icon - responsive size + SVG for crisp look on all screens */}
                 <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${
+                  className={`flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-colors duration-300 ${
                     openIndex === index
                       ? 'bg-gray-200'
                       : 'bg-green-600'
                   }`}
+                  aria-hidden
                 >
-                  <span
-                    className={`text-xl font-bold ${
-                      openIndex === index ? 'text-gray-700' : 'text-white'
-                    }`}
-                  >
-                    {openIndex === index ? '−' : '+'}
-                  </span>
+                  {openIndex === index ? (
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 12h12" />
+                    </svg>
+                  ) : (
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12M6 12h12" />
+                    </svg>
+                  )}
                 </div>
               </button>
 
@@ -100,7 +104,7 @@ const FAQ = () => {
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="px-6 pb-4"
+                  className="px-4 sm:px-6 pb-4"
                 >
                   <p className="text-gray-600 leading-relaxed">
                     {faq.answer}
