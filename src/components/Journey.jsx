@@ -9,8 +9,9 @@ const experience = [
     role: "Full-Stack Developer",
     type: "Full-time",
     current: true,
+    // Coders Lodge: keep the full production stack list; update role summary only
     description:
-      "Full-stack development across React and Next.js frontends, Node.js and NestJS backends, and MongoDB, PostgreSQL, and Redis — including REST and third-party APIs, Socket.IO and WebSockets, live streaming integrations, Stripe payments, and Docker.",
+      "Developing and maintaining production-ready web applications, working across frontend and backend systems. Building scalable features, integrating third-party services, payments, APIs, and real-time functionality while contributing to the full product development lifecycle.",
     stack: [
       "React.js",
       "Next.js",
@@ -37,9 +38,10 @@ const experience = [
     place: "Morosoft Labs · Rawalpindi",
     role: "Full-Stack Developer Intern",
     type: "Internship",
+    // Morosoft Labs: internship summary + focused stack from the resume
     description:
-      "Built dynamic full-stack apps, responsive UIs, and REST APIs in an Agile team. Worked on API development, MongoDB schema design, and performance improvements.",
-    stack: ["React", "Node.js", "Tailwind", "MongoDB", "Express"],
+      "Worked on full-stack web applications, developing responsive user interfaces, backend functionality, and REST APIs. Collaborated with the development team to build features, manage databases, and improve application performance.",
+    stack: ["React", "Node.js", "Express.js", "MongoDB", "Tailwind CSS"],
   },
 ];
 

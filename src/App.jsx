@@ -1,6 +1,7 @@
 import { Suspense, lazy } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import { SectionSkeleton } from "./components/Skeleton";
 
 const About = lazy(() => import("./components/About"));
 const Skills = lazy(() => import("./components/Skills"));
@@ -11,12 +12,6 @@ const Contact = lazy(() => import("./components/Contact"));
 const FAQ = lazy(() => import("./components/FAQ"));
 const Footer = lazy(() => import("./components/Footer"));
 
-const LoadingSpinner = () => (
-  <div className="flex min-h-[40vh] items-center justify-center" role="status" aria-label="Loading">
-    <div className="spin" />
-  </div>
-);
-
 function App() {
   return (
     <div className="min-h-screen bg-ink text-paper">
@@ -26,7 +21,7 @@ function App() {
       <Navbar />
       <main id="main" tabIndex={-1}>
         <Hero />
-        <Suspense fallback={<LoadingSpinner />}>
+        <Suspense fallback={<SectionSkeleton />}>
           <About />
           <Skills />
           <Projects />

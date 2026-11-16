@@ -19,18 +19,19 @@ const Hero = () => {
         <div className="grid min-w-0 items-start gap-8 lg:grid-cols-12 lg:gap-x-12 lg:gap-y-8">
           <motion.div {...enter(0)} className="order-1 min-w-0 lg:col-span-7 lg:row-start-1">
             <p className="kicker">Full-Stack Developer</p>
-            <h1 id="home-heading" className="masthead mt-5 text-paper">
-              Ghayour
-              <span className="block italic">Khan</span>
+           
+            <h1
+              id="home-heading"
+              className="masthead mt-5 whitespace-nowrap text-paper sm:whitespace-normal"
+            >
+              Ghayour <span className="italic sm:block">Khan</span>
             </h1>
           </motion.div>
 
           <motion.div {...enter(0.12)} className="order-3 min-w-0 lg:col-span-7 lg:row-start-2">
             <p className="max-w-xl text-base leading-relaxed text-fog sm:text-lg">
-              I&apos;m Ghayour Mehdi Khan, a Full-Stack Developer based in Rawalpindi, Pakistan —
-              building scalable web applications across frontend and backend, databases, REST and
-              third-party APIs, payments, and real-time features from concept through production
-              deployment.
+              I build thoughtful digital experiences through clean code, modern technologies, and a
+              passion for solving real-world problems.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
@@ -61,8 +62,8 @@ const Hero = () => {
             {...enter(0.16)}
             className="order-2 mx-auto w-full min-w-0 max-w-[19rem] sm:max-w-[22.5rem] md:max-w-[26rem] lg:col-span-5 lg:col-start-8 lg:row-span-2 lg:row-start-1 lg:mx-0 lg:max-w-[27.5rem] lg:justify-self-end"
           >
-            <div className="mb-4 h-px w-10 bg-gold" aria-hidden="true" />
-            <div className="media-frame">
+            <div className="media-frame relative aspect-[5/6]">
+              {!imageLoaded && <div className="skeleton absolute inset-0" />}
               <img
                 ref={imageRef}
                 src="/assets/gm-khan.jpg"
@@ -72,7 +73,7 @@ const Hero = () => {
                 fetchPriority="high"
                 decoding="async"
                 onLoad={() => setImageLoaded(true)}
-                className={`aspect-[5/6] w-full object-cover object-top transition-opacity duration-700 ${
+                className={`h-full w-full object-cover object-top transition-opacity duration-500 ${
                   imageLoaded ? "opacity-100" : "opacity-0"
                 }`}
               />

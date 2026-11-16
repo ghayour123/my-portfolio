@@ -116,17 +116,8 @@ const Footer = () => {
       </div>
 
       <div className="border-t border-line">
-        <div className="shell flex flex-col gap-3 py-6 text-sm text-fog md:flex-row md:items-center md:justify-between">
+        <div className="shell py-6 text-sm text-fog">
           <p>© {currentYear} Ghayour Khan. All rights reserved.</p>
-          <Link
-            to="home"
-            href="#home"
-            smooth
-            duration={duration}
-            className="meta-label transition-colors duration-300 hover:text-gold"
-          >
-            Back to top
-          </Link>
         </div>
       </div>
     </footer>

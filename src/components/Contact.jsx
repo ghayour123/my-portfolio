@@ -144,8 +144,6 @@ const Contact = () => {
               </a>
             ))}
             <p className="pt-6 text-sm leading-relaxed text-fog">
-              Based in Rawalpindi, Pakistan
-              <span className="mx-2 text-gold">/</span>
               Typically replies within 24 hours.
             </p>
           </motion.div>

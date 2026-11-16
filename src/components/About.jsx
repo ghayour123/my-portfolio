@@ -23,7 +23,7 @@ const strengths = [
 ];
 
 const stats = [
-  { value: "2+", label: "Years of experience" },
+  { value: "1.5+", label: "Years of experience" },
   { value: "15+", label: "Technologies used" },
   { value: "Full-Stack", label: "End-to-end development" },
 ];
@@ -34,25 +34,25 @@ const About = () => {
   return (
     <section id="about" aria-labelledby="about-heading" className="border-t border-line bg-ink-soft">
       <div className="shell section">
+        {/* --- About copy: headline + intro + supporting paragraphs --- */}
         <SectionHeading
           id="about-heading"
           index="01"
           kicker="About"
-          title="From the interface through to production."
-          intro="I am Ghayour Mehdi Khan, a Full-Stack Developer with experience collaborating with companies and startups."
+          title="Turning ideas into meaningful digital experiences."
+          intro="I'm Ghayour Mehdi Khan, a Full-Stack Developer experienced in building web applications for companies and startups."
         />
 
         <div className="mt-14 grid gap-14 lg:mt-20 lg:grid-cols-12 lg:gap-16">
           <motion.div {...reveal(0.05)} className="min-w-0 lg:col-span-6">
             <p className="max-w-xl leading-relaxed text-mist">
-              I build digital products that are clean, efficient, and scalable — spanning React and
-              Next.js frontends, Node.js and NestJS backends, MongoDB and PostgreSQL, and
-              production-ready API and real-time integrations.
+              I work across frontend and backend development, creating intuitive user experiences,
+              scalable systems, and reliable integrations using modern technologies like React,
+              Next.js, Node.js, and PostgreSQL.
             </p>
             <p className="mt-5 max-w-xl leading-relaxed text-fog">
-              My work covers authentication, payment flows, REST and GraphQL APIs, and real-time
-              features with Socket.IO. I focus on solving problems clearly and shipping
-              production-level applications.
+              I enjoy solving real-world problems, learning new technologies, and building products
+              that are practical, efficient, and built to grow.
             </p>
 
             <dl className="mt-10 grid border-t border-line md:grid-cols-3">

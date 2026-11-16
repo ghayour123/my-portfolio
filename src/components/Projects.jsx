@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
 import { useMotion } from "../lib/motion";
@@ -17,6 +18,7 @@ const projects = [
     image: "/assets/leafoxy-preview.jpg",
     width: 1400,
     height: 1050,
+    aspect: "aspect-[4/3]",
     tags: ["E-Commerce", "Product Catalog", "Landscaping Services"],
     domain: "leafoxy.com",
     live: "https://leafoxy.com/",
@@ -35,11 +37,40 @@ const projects = [
     image: "/assets/isabitv-preview.jpg",
     width: 1200,
     height: 600,
+    aspect: "aspect-[2/1]",
     tags: ["Next.js", "React", "Video Streaming"],
     domain: "isabitv.com",
     live: "https://www.isabitv.com/",
   },
 ];
+
+function ProjectImage({ src, width, height, aspect }) {
+  const [loaded, setLoaded] = useState(false);
+  const imageRef = useRef(null);
+
+  useEffect(() => {
+    if (imageRef.current?.complete) setLoaded(true);
+  }, []);
+
+  return (
+    <div className={`relative ${aspect}`}>
+      {!loaded && <div className="skeleton absolute inset-0" />}
+      <img
+        ref={imageRef}
+        src={src}
+        alt=""
+        width={width}
+        height={height}
+        loading="lazy"
+        decoding="async"
+        onLoad={() => setLoaded(true)}
+        className={`media-zoom h-full w-full object-cover object-top transition-opacity duration-500 ${
+          loaded ? "opacity-100" : "opacity-0"
+        }`}
+      />
+    </div>
+  );
+}
 
 const Projects = () => {
   const { reveal } = useMotion();
@@ -71,16 +102,11 @@ const Projects = () => {
                   index % 2 ? "lg:order-2" : ""
                 }`}
               >
-                <img
+                <ProjectImage
                   src={project.image}
-                  alt=""
                   width={project.width}
                   height={project.height}
-                  loading="lazy"
-                  decoding="async"
-                  className={`media-zoom w-full object-cover object-top ${
-                    project.id === 1 ? "aspect-[4/3]" : "aspect-[2/1]"
-                  }`}
+                  aspect={project.aspect}
                 />
               </a>
 
