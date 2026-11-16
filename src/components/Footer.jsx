@@ -1,228 +1,132 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt, FaPhone, FaCode, FaFacebook, FaYoutube, FaTwitter, FaInstagram } from "react-icons/fa";
 import { Link } from "react-scroll";
+import {
+  FaFacebook,
+  FaGithub,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter,
+  FaYoutube,
+} from "react-icons/fa";
+import { useMotion } from "../lib/motion";
+
+const quickLinks = [
+  { name: "Home", to: "home" },
+  { name: "About", to: "about" },
+  { name: "Skills", to: "skills" },
+  { name: "Projects", to: "projects" },
+  { name: "Journey", to: "journey" },
+  { name: "Services", to: "services" },
+  { name: "Contact", to: "contact" },
+  { name: "FAQ", to: "faq" },
+];
+
+const socialLinks = [
+  { name: "GitHub", href: "https://github.com/ghayour123", icon: <FaGithub /> },
+  { name: "LinkedIn", href: "https://linkedin.com/in/ghayour-mehdi", icon: <FaLinkedin /> },
+  { name: "Facebook", href: "https://www.facebook.com/ghayour.khan.5817", icon: <FaFacebook /> },
+  { name: "YouTube", href: "https://youtube.com/@ghayour123", icon: <FaYoutube /> },
+  { name: "Twitter", href: "https://twitter.com/ghayour123", icon: <FaTwitter /> },
+  { name: "Instagram", href: "https://instagram.com/ghayour_baloch", icon: <FaInstagram /> },
+];
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const [email, setEmail] = useState("");
-
-  const quickLinks = [
-    { name: "Home", to: "home" },
-    { name: "Services", to: "services" },
-    { name: "About", to: "about" },
-    { name: "Projects", to: "projects" },
-    { name: "FAQ", to: "faq" },
-    { name: "Contact", to: "contact" }
-  ];
-
-  const socialLinks = [
-    {
-      name: "Facebook",
-      href: "https://www.facebook.com/ghayour.khan.5817",
-      icon: <FaFacebook />,
-    },
-    {
-      name: "LinkedIn",
-      href: "https://linkedin.com/in/ghayour-mehdi",
-      icon: <FaLinkedin />,
-    },
-    {
-      name: "YouTube",
-      href: "https://youtube.com/@ghayour123",
-      icon: <FaYoutube />,
-    },
-    {
-      name: "Twitter",
-      href: "https://twitter.com/ghayour123",
-      icon: <FaTwitter />,
-    },
-    {
-      name: "Instagram",
-      href: "https://instagram.com/ghayour_baloch",
-      icon: <FaInstagram />,
-    }
-  ];
-
-  const handleNewsletterSubmit = (e) => {
-    e.preventDefault();
-    // Handle newsletter subscription
-    console.log("Newsletter subscription:", email);
-    setEmail("");
-  };
+  const { duration } = useMotion();
 
   return (
-    <footer id="footer" className="bg-white">
-      {/* Top Section - Call to Action */}
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 md:mb-0">
-            Let's{" "}
-            <span style={{ color: '#FDAE1B' }}>Connect</span>{" "}
-            there
-          </h2>
-          
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center bg-green-800 text-white px-8 py-4 rounded-full font-semibold hover:bg-green-700 transition-colors duration-300"
+    <footer id="footer" className="border-t border-line bg-ink">
+      <div className="shell py-16 lg:py-20">
+        <div className="border-b border-line pb-10">
+          <Link
+            to="home"
+            href="#home"
+            smooth
+            duration={duration}
+            className="inline-block font-display text-[clamp(3.5rem,12vw,8rem)] font-medium leading-[0.84] tracking-[-0.04em] text-paper"
           >
-            <span className="mr-4">View All Blogs</span>
-            <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: '#FDAE1B' }}>
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </motion.button>
+            Ghayour
+            <span className="block italic">Khan</span>
+          </Link>
+          <p className="mt-6 max-w-md leading-relaxed text-fog">
+            Full-Stack Developer crafting modern, efficient digital products across frontend,
+            backend, databases, APIs, and real-time applications.
+          </p>
         </div>
-        
-        <div className="border-t border-gray-200"></div>
-      </div>
 
-      {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          
-          {/* Brand Information */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex items-center mb-4">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3" style={{ backgroundColor: '#FDAE1B' }}>
-                <span className="text-black font-bold text-lg">G</span>
-              </div>
-              <span className="text-2xl font-bold text-gray-900">Ghayour.</span>
-            </div>
-            
-            <p className="text-gray-600 leading-relaxed mb-6">
-              Passionate Full Stack Developer crafting modern, efficient, and exceptional digital experiences with the MERN stack. Let's build something amazing together!
-            </p>
-            
-            {/* Social Media Icons */}
-            <div className="flex space-x-3">
-              {socialLinks.map((social, index) => (
-                <motion.a
-                  key={index}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300"
-                  style={{ backgroundColor: '#FDAE1B' }}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <span className="text-black text-sm">{social.icon}</span>
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Navigation */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            <h4 className="text-lg font-bold mb-6" style={{ color: '#FDAE1B' }}>
-              Navigation
-            </h4>
-            <ul className="space-y-3">
-              {quickLinks.map((link, index) => (
-                <li key={index}>
+        <div className="grid gap-12 py-12 md:grid-cols-3">
+          <div>
+            <p className="kicker">Navigation</p>
+            <ul className="mt-5 grid grid-cols-2 gap-x-6 gap-y-3">
+              {quickLinks.map((link) => (
+                <li key={link.to}>
                   <Link
                     to={link.to}
-                    smooth={true}
-                    duration={500}
-                    className="text-gray-600 hover:text-gray-900 transition-colors duration-300 cursor-pointer"
+                    href={`#${link.to}`}
+                    smooth
+                    duration={duration}
+                    offset={link.to === "home" ? 0 : -72}
+                    className="text-sm text-fog transition-colors duration-300 hover:text-paper"
                   >
                     {link.name}
                   </Link>
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
-          {/* Contact */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <h4 className="text-lg font-bold mb-6" style={{ color: '#FDAE1B' }}>
-              Contact
-            </h4>
-            <div className="space-y-3">
-              <div className="flex items-center text-gray-600">
-                <FaPhone className="mr-3" />
-                <span>+92 3057147879</span>
-              </div>
-              <div className="flex items-center text-gray-600">
-                <FaEnvelope className="mr-3" />
-                <span>ghayourbaloch12@gmail.com</span>
-              </div>
-              <div className="flex items-center text-gray-600">
-                <FaMapMarkerAlt className="mr-3" />
-                <span>Rawalpindi, Pakistan</span>
-              </div>
-            </div>
-          </motion.div>
+          <div>
+            <p className="kicker">Contact</p>
+            <ul className="mt-5 space-y-3 text-sm text-fog">
+              <li>
+                <a
+                  href="mailto:ghayourbaloch12@gmail.com"
+                  className="break-all transition-colors duration-300 hover:text-paper sm:break-normal"
+                >
+                  ghayourbaloch12@gmail.com
+                </a>
+              </li>
+              <li>
+                <a href="tel:+923057147879" className="transition-colors duration-300 hover:text-paper">
+                  +92 3057147879
+                </a>
+              </li>
+              <li>Rawalpindi, Pakistan</li>
+            </ul>
+          </div>
 
-          {/* Newsletter */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <h4 className="text-lg font-bold mb-6" style={{ color: '#FDAE1B' }}>
-              Get the latest information
-            </h4>
-            <form onSubmit={handleNewsletterSubmit} className="flex">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email address"
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                required
-              />
-              <motion.button
-                type="submit"
-                className="px-4 py-3 bg-green-800 text-white rounded-r-lg hover:bg-green-700 transition-colors duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <div className="w-6 h-6 rounded-full flex items-center justify-center" style={{ backgroundColor: '#FDAE1B' }}>
-                  <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </motion.button>
-            </form>
-          </motion.div>
+          <div>
+            <p className="kicker">Connect</p>
+            <ul className="mt-5 flex flex-wrap gap-3">
+              {socialLinks.map((social) => (
+                <li key={social.name}>
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.name}
+                    className="icon-btn flex h-11 w-11 items-center justify-center border border-line text-mist transition-colors duration-300 hover:border-gold hover:text-gold"
+                  >
+                    {social.icon}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
 
-      {/* Bottom Footer Bar */}
-      <div className="bg-green-800 py-6">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-white text-sm mb-4 md:mb-0">
-              Copyright © {currentYear}{" "}
-              <span style={{ color: '#FDAE1B' }}>Ghayour.</span>{" "}
-              All Rights Reserved.
-            </p>
-            <div className="flex items-center text-white text-sm">
-              <span>User Terms & Conditions</span>
-              <span className="mx-2">|</span>
-              <span>Privacy Policy</span>
-            </div>
-          </div>
+      <div className="border-t border-line">
+        <div className="shell flex flex-col gap-3 py-6 text-sm text-fog md:flex-row md:items-center md:justify-between">
+          <p>© {currentYear} Ghayour Khan. All rights reserved.</p>
+          <Link
+            to="home"
+            href="#home"
+            smooth
+            duration={duration}
+            className="meta-label transition-colors duration-300 hover:text-gold"
+          >
+            Back to top
+          </Link>
         </div>
       </div>
     </footer>

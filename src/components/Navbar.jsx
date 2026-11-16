@@ -1,156 +1,203 @@
-import React from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-scroll";
-import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
+import { useMotion } from "../lib/motion";
 
-// Framer Motion Variants
-const navVariants = {
-  hidden: { y: -60, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.6,
-      ease: "easeInOut",
-      when: "beforeChildren",
-      staggerChildren: 0.15
-    }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: -10 },
-  visible: { opacity: 1, y: 0 }
-};
-
-const navLinks = ["Home", "Services", "About", "Journey", "Pricing", "Projects", "FAQ"];
+const navLinks = [
+  { label: "About", to: "about" },
+  { label: "Skills", to: "skills" },
+  { label: "Work", to: "projects" },
+  { label: "Journey", to: "journey" },
+  { label: "Services", to: "services" },
+  { label: "FAQ", to: "faq" },
+];
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const navRef = useRef(null);
+  const menuButtonRef = useRef(null);
+  const wasOpen = useRef(false);
+  const { reduce, duration } = useMotion();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 1024) setOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    if (wasOpen.current && !open) {
+      const button = menuButtonRef.current;
+      if (button?.getClientRects().length) button.focus({ preventScroll: true });
+    }
+    wasOpen.current = open;
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const nav = navRef.current;
+    if (!nav) return undefined;
+
+    const visible = () =>
+      [...nav.querySelectorAll("a[href], button:not([disabled])")].filter(
+        (el) => el.getClientRects().length > 0
+      );
+
+    nav.querySelector("[data-menu-link]")?.focus({ preventScroll: true });
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const items = visible();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
+  const close = () => setOpen(false);
 
   return (
-    <motion.nav
-      variants={navVariants}
-      initial="hidden"
-      animate="visible"
-      className="w-full fixed top-0 left-0 z-50 bg-green-800 shadow-lg font-sans"
+    <nav
+      ref={navRef}
+      aria-label="Primary"
+      className={`fixed inset-x-0 top-0 z-50 h-[4.5rem] ${scrolled || open ? "nav-solid" : ""}`}
     >
-      <div className="w-full px-6 py-4 flex justify-between items-center">
-        {/* Logo Animation */}
-        <motion.div
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex items-center gap-3 cursor-pointer"
+      <div className="shell flex h-full items-center justify-between gap-4">
+        <Link
+          to="home"
+          href="#home"
+          smooth
+          duration={duration}
+          className="shrink-0 whitespace-nowrap font-display text-[1.35rem] leading-none tracking-[-0.02em] text-paper min-[380px]:text-[1.55rem] sm:text-[1.7rem]"
         >
-          <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: '#FDAE1B' }}>
-            <span className="text-white font-bold text-sm">G</span>
-          </div>
-          <span className="text-xl md:text-2xl font-bold tracking-wide text-white">
-            Ghayour.
-          </span>
-        </motion.div>
+          Ghayour Khan
+        </Link>
 
-        {/* Desktop Links */}
-        <motion.ul className="hidden md:flex gap-6 text-[15px] font-medium">
-          {navLinks.map((link) => {
-            const linkId = link.toLowerCase();
-            return (
-              <motion.li key={link} variants={itemVariants}>
-                <Link
-                  to={linkId}
-                  smooth={true}
-                  duration={500}
-                  className="relative px-4 py-2 cursor-pointer text-white transition-all duration-300"
-                  style={{
-                    '--hover-color': '#FDAE1B'
-                  }}
-                  onMouseEnter={(e) => e.target.style.color = '#FDAE1B'}
-                  onMouseLeave={(e) => e.target.style.color = 'white'}
-                >
-                  {link}
-                </Link>
-              </motion.li>
-            );
-          })}
-        </motion.ul>
+        <ul className="hidden items-center gap-6 lg:flex xl:gap-8">
+          {navLinks.map((link) => (
+            <li key={link.to}>
+              <Link
+                to={link.to}
+                href={`#${link.to}`}
+                spy
+                smooth
+                duration={duration}
+                offset={-72}
+                activeClass="is-active"
+                className="nav-link"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-        {/* Contact Button */}
-        <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="hidden md:block mr-6"
-        >
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+        <div className="flex items-center gap-2">
+          <Link
+            to="contact"
+            href="#contact"
+            smooth
+            duration={duration}
+            offset={-72}
+            className="btn-nav hidden lg:inline-flex"
           >
-            <Link
-              to="footer"
-              smooth={true}
-              duration={500}
-              className="bg-white text-green-800 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 hover:text-green-900 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
-            >
-              Contact Me
-            </Link>
-          </motion.div>
-        </motion.div>
-
-        {/* Mobile Icon */}
-        <motion.div
-          className="md:hidden text-2xl text-white cursor-pointer p-2 rounded-lg hover:bg-white/10 transition-colors"
-          onClick={() => setOpen(!open)}
-          whileTap={{ scale: 0.95 }}
-        >
-          <motion.div
-            animate={{ rotate: open ? 180 : 0 }}
-            transition={{ duration: 0.3 }}
+            Contact
+          </Link>
+          <button
+            ref={menuButtonRef}
+            type="button"
+            className="flex h-11 w-11 items-center justify-center text-paper lg:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => setOpen((value) => !value)}
           >
-            {open ? <FiX /> : <FiMenu />}
-          </motion.div>
-        </motion.div>
+            {open ? <FiX size={22} /> : <FiMenu size={22} />}
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Menu */}
-      {open && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          className="md:hidden overflow-hidden bg-green-800 border-t border-white/10"
-        >
-          <motion.ul
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col items-center py-6 gap-4 text-white font-medium"
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            id="mobile-menu"
+            key="mobile-menu"
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: reduce ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-x-0 bottom-0 top-[4.5rem] overflow-y-auto overscroll-contain bg-ink lg:hidden"
+            onClick={(event) => {
+              if (event.target === event.currentTarget) close();
+            }}
           >
-            {navLinks.map((link, index) => {
-              const linkId = link.toLowerCase();
-              return (
-                <motion.li
-                  key={link}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
+            <ul className="shell flex flex-col pt-4">
+              {navLinks.map((link, index) => (
+                <li key={link.to} className="border-b border-line">
                   <Link
-                    to={linkId}
-                    smooth={true}
-                    duration={500}
-                    onClick={() => setOpen(false)}
-                    className="cursor-pointer hover:text-white transition-colors duration-300 px-4 py-2 rounded-lg hover:bg-white/10"
+                    to={link.to}
+                    href={`#${link.to}`}
+                    smooth
+                    duration={duration}
+                    offset={-72}
+                    data-menu-link={index === 0 ? true : undefined}
+                    onClick={close}
+                    className="block py-4 font-display text-[clamp(2.2rem,8vw,3.4rem)] leading-none text-paper"
                   >
-                    {link}
+                    {link.label}
                   </Link>
-                </motion.li>
-              );
-            })}
-          </motion.ul>
-        </motion.div>
-      )}
-    </motion.nav>
+                </li>
+              ))}
+            </ul>
+            <div className="shell pb-10 pt-8">
+              <Link
+                to="contact"
+                href="#contact"
+                smooth
+                duration={duration}
+                offset={-72}
+                onClick={close}
+                className="btn btn-fill w-full"
+              >
+                Contact
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
   );
 };
 

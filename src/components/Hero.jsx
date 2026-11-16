@@ -1,126 +1,84 @@
-import React, { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import heroImg from "/assets/ghayour.jpeg";
+import { Link } from "react-scroll";
+import { useMotion } from "../lib/motion";
 
 const Hero = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const imageRef = useRef(null);
+  const { enter, duration } = useMotion();
+
+  useEffect(() => {
+    if (imageRef.current?.complete) setImageLoaded(true);
+  }, []);
 
   return (
-    <section
-      id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-white text-gray-800 px-6 pt-20"
-    >
-      <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        {/* Text Section */}
-        <motion.div
-          initial={{ opacity: 0, x: -60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="space-y-6 z-10"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mb-6"
-          >
-            <div className="inline-block px-6 py-3 border-2 border-dashed border-gray-400 rounded-lg">
-              <span className="text-gray-600 text-lg font-medium">Hello There!</span>
+    <section id="home" aria-labelledby="home-heading" className="relative bg-ink">
+      <div className="hero-glow" aria-hidden="true" />
+      <div className="shell relative pb-14 pt-28 sm:pb-16 sm:pt-32 lg:pb-20 lg:pt-28">
+        <div className="grid min-w-0 items-start gap-8 lg:grid-cols-12 lg:gap-x-12 lg:gap-y-8">
+          <motion.div {...enter(0)} className="order-1 min-w-0 lg:col-span-7 lg:row-start-1">
+            <p className="kicker">Full-Stack Developer</p>
+            <h1 id="home-heading" className="masthead mt-5 text-paper">
+              Ghayour
+              <span className="block italic">Khan</span>
+            </h1>
+          </motion.div>
+
+          <motion.div {...enter(0.12)} className="order-3 min-w-0 lg:col-span-7 lg:row-start-2">
+            <p className="max-w-xl text-base leading-relaxed text-fog sm:text-lg">
+              I&apos;m Ghayour Mehdi Khan, a Full-Stack Developer based in Rawalpindi, Pakistan —
+              building scalable web applications across frontend and backend, databases, REST and
+              third-party APIs, payments, and real-time features from concept through production
+              deployment.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Link
+                to="projects"
+                href="#projects"
+                smooth
+                duration={duration}
+                offset={-72}
+                className="btn btn-fill w-full sm:w-auto"
+              >
+                View Projects
+                <span aria-hidden="true">→</span>
+              </Link>
+              <Link
+                to="contact"
+                href="#contact"
+                smooth
+                duration={duration}
+                offset={-72}
+                className="btn btn-line w-full sm:w-auto"
+              >
+                Contact Me
+              </Link>
             </div>
           </motion.div>
-          
-          <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-4">
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="block text-gray-800"
-            >
-                     I'm <span className="underline" style={{ color: '#FDAE1B', textDecorationColor: '#FDAE1B' }}>Ghayour,</span>
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="block text-4xl md:text-6xl text-gray-800 mt-2"
-            >
-              Full Stack Developer
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="block text-3xl md:text-5xl text-gray-800 mt-2"
-            >
-              Based in Pakistan.
-            </motion.span>
-          </h1>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="text-lg text-gray-600 max-w-2xl leading-relaxed mb-8"
+
+          <motion.figure
+            {...enter(0.16)}
+            className="order-2 mx-auto w-full min-w-0 max-w-[19rem] sm:max-w-[22.5rem] md:max-w-[26rem] lg:col-span-5 lg:col-start-8 lg:row-span-2 lg:row-start-1 lg:mx-0 lg:max-w-[27.5rem] lg:justify-self-end"
           >
-            I'm an experienced Full Stack Developer with 3+ years in the field, collaborating with various companies and startups.
-          </motion.p>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            className="flex flex-col sm:flex-row gap-4"
-          >
-            <motion.a
-              href="#projects"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center bg-green-800 text-white font-semibold px-8 py-4 rounded-full shadow-lg transition-all duration-300 hover:bg-green-700"
-            >
-              <span className="flex-1">View My Portfolio</span>
-              <div className="w-12 h-12 rounded-full flex items-center justify-center ml-4" style={{ backgroundColor: '#FDAE1B' }}>
-                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z"/>
-                </svg>
-              </div>
-            </motion.a>
-          </motion.div>
-        </motion.div>
-
-        {/* Image + Decorative Elements Section - responsive pic and arc for all screens */}
-        <motion.div 
-          className="relative w-full flex justify-center items-center min-h-[240px] sm:min-h-[280px] md:min-h-[320px] lg:min-h-[360px]"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.7 }}
-        >
-          {/* Orange arc (line around pic) - scales with viewport so it never overflows */}
-          <motion.div
-            className="absolute w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] md:w-[420px] md:h-[420px] lg:w-[500px] lg:h-[500px] border-4 sm:border-6 lg:border-8 rounded-full"
-            style={{
-              borderLeftColor: '#FDAE1B',
-              borderTopColor: 'transparent',
-              borderRightColor: 'transparent',
-              borderBottomColor: 'transparent',
-              transform: 'rotate(-45deg)'
-            }}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 1 }}
-          />
-
-          {/* Profile image - responsive sizes so it fits on small phones and scales up on desktop */}
-          <motion.img
-            src={heroImg}
-            alt="Ghayour Mehdi Khan - Full Stack Developer"
-            initial={{ opacity: 0, scale: 0.7 }}
-            animate={{ opacity: imageLoaded ? 1 : 0, scale: imageLoaded ? 1 : 0.7 }}
-            transition={{ duration: 1 }}
-            className={`relative w-[220px] h-[220px] sm:w-[260px] sm:h-[260px] md:w-[300px] md:h-[300px] lg:w-[350px] lg:h-[350px] object-cover rounded-full shadow-2xl z-10 ${imageLoaded ? 'block' : 'hidden'}`}
-            onLoad={() => setImageLoaded(true)}
-          />
-
-        </motion.div>
+            <div className="mb-4 h-px w-10 bg-gold" aria-hidden="true" />
+            <div className="media-frame">
+              <img
+                ref={imageRef}
+                src="/assets/gm-khan.jpg"
+                alt="Portrait of Ghayour Khan"
+                width={768}
+                height={1024}
+                fetchPriority="high"
+                decoding="async"
+                onLoad={() => setImageLoaded(true)}
+                className={`aspect-[5/6] w-full object-cover object-top transition-opacity duration-700 ${
+                  imageLoaded ? "opacity-100" : "opacity-0"
+                }`}
+              />
+            </div>
+          </motion.figure>
+        </div>
       </div>
     </section>
   );

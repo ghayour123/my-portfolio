@@ -1,166 +1,112 @@
-/**
- * About.jsx
- * CHANGE: Removed profile picture (replaced with Core Expertise cards);
- *         removed Download CV/signature; added CTA block (availability + Get in Touch).
- * WHY: Industry-standard About: stats followed by clear next-step CTA to contact.
- * DEPS: framer-motion. Related: Hero, Services, Contact, Footer.
- */
-
-import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-scroll";
+import SectionHeading from "./SectionHeading";
+import { useMotion } from "../lib/motion";
 
-// --- Core expertise cards (industry-standard "value props" for About section) ---
-const coreExpertise = [
+const strengths = [
   {
     title: "Full Stack Development",
-    description: "End-to-end solutions from UI to database and APIs.",
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-      </svg>
-    ),
+    description: "End-to-end solutions from UI to APIs, databases, and deployment.",
   },
   {
     title: "Clean & Scalable Code",
-    description: "Maintainable architecture and best practices.",
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-      </svg>
-    ),
+    description: "Maintainable architecture, clear structure, and production-ready practices.",
   },
   {
     title: "Modern Tech Stack",
-    description: "React, Node, databases, and cloud-ready deployments.",
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-      </svg>
-    ),
+    description: "React, Next.js, Node.js, NestJS, MongoDB, PostgreSQL, and cloud-ready apps.",
   },
   {
-    title: "Delivery on Time",
-    description: "Clear communication and reliable project delivery.",
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
+    title: "Reliable Delivery",
+    description: "Clear communication, focused execution, and dependable project delivery.",
   },
 ];
 
+const stats = [
+  { value: "2+", label: "Years of experience" },
+  { value: "15+", label: "Technologies used" },
+  { value: "Full-Stack", label: "End-to-end development" },
+];
+
 const About = () => {
+  const { reveal, duration } = useMotion();
+
   return (
-    <section
-      id="about"
-      className="min-h-screen relative overflow-hidden px-6 md:px-12 py-20 bg-green-800"
-    >
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Centered Section Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          {/* Subtitle */}
-          <div className="flex items-center justify-center mb-4">
-            <div className="w-8 h-0.5 bg-white mr-3"></div>
-            <span className="text-white font-medium">About Me</span>
-          </div>
-        </motion.div>
+    <section id="about" aria-labelledby="about-heading" className="border-t border-line bg-ink-soft">
+      <div className="shell section">
+        <SectionHeading
+          id="about-heading"
+          index="01"
+          kicker="About"
+          title="From the interface through to production."
+          intro="I am Ghayour Mehdi Khan, a Full-Stack Developer with experience collaborating with companies and startups."
+        />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
-          {/* Left Side - Core Expertise (industry-standard value propositions) */}
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            viewport={{ once: true }}
-          >
-            {coreExpertise.map((item, index) => (
-              <motion.div
-                key={index}
-                className="rounded-xl p-5 border-2 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:bg-white/10"
-                style={{ borderColor: "#FDAE1B" }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.02 }}
-              >
-                <div className="mb-3" style={{ color: "#FDAE1B" }}>
-                  {item.icon}
-                </div>
-                <h3 className="text-white font-semibold text-lg mb-2">{item.title}</h3>
-                <p className="text-white/90 text-sm leading-relaxed">{item.description}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Right Side - About Me Content */}
-          <motion.div
-            className="text-white"
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            viewport={{ once: true }}
-          >
-            {/* Main Title */}
-            <h2 className="text-5xl md:text-6xl font-bold leading-tight mb-8">
-              Who is{" "}
-              <span style={{ color: '#FDAE1B', fontFamily: 'cursive' }}>
-                Ghayour Mehdi Khan
-              </span>
-              ?
-            </h2>
-
-            {/* Description */}
-            <p className="text-white text-lg leading-relaxed mb-8 max-w-lg">
-              I am a passionate Full Stack Developer with expertise in modern web technologies. 
-              I love creating digital experiences that make a difference. With a strong foundation 
-              in both frontend and backend development, I bring ideas to life through clean, 
-              efficient, and scalable solutions.
+        <div className="mt-14 grid gap-14 lg:mt-20 lg:grid-cols-12 lg:gap-16">
+          <motion.div {...reveal(0.05)} className="min-w-0 lg:col-span-6">
+            <p className="max-w-xl leading-relaxed text-mist">
+              I build digital products that are clean, efficient, and scalable — spanning React and
+              Next.js frontends, Node.js and NestJS backends, MongoDB and PostgreSQL, and
+              production-ready API and real-time integrations.
+            </p>
+            <p className="mt-5 max-w-xl leading-relaxed text-fog">
+              My work covers authentication, payment flows, REST and GraphQL APIs, and real-time
+              features with Socket.IO. I focus on solving problems clearly and shipping
+              production-level applications.
             </p>
 
-            {/* Statistics */}
-            <div className="grid grid-cols-3 gap-8 mb-8">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-white mb-2">50+</div>
-                <div className="text-white text-sm">Projects Completed</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-white mb-2">15+</div>
-                <div className="text-white text-sm">Technologies Mastered</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-white mb-2">3+</div>
-                <div className="text-white text-sm">Years of Experience</div>
-              </div>
-            </div>
+            <dl className="mt-10 grid border-t border-line md:grid-cols-3">
+              {stats.map((stat, index) => (
+                <div
+                  key={stat.label}
+                  className={`min-w-0 border-b border-line py-5 last:border-b-0 md:border-b-0 md:border-r md:py-6 md:last:border-r-0 ${
+                    index === 0 ? "md:pr-6" : index === stats.length - 1 ? "md:pl-6" : "md:px-6"
+                  }`}
+                >
+                  <dt className="meta-label">{stat.label}</dt>
+                  <dd className="mt-2 break-words font-display text-[clamp(1.8rem,4vw,2.75rem)] font-medium leading-none text-paper">
+                    {stat.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
 
-            {/* CTA block: availability line + Get in Touch (industry-standard pattern) */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-6 gap-4">
-              <p className="text-white/90 text-base max-w-md">
-                Open to new projects and collaborations. Let&apos;s build something great together.
-              </p>
-              <motion.a
-                href="#contact"
-                className="inline-flex items-center justify-center gap-2 bg-transparent text-white font-semibold px-6 py-3 rounded-xl border-2 shrink-0 transition-all duration-300 hover:bg-white/10"
-                style={{ borderColor: "#FDAE1B", color: "#FDAE1B" }}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Get in Touch
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </motion.a>
-            </div>
+            <Link
+              to="contact"
+              href="#contact"
+              smooth
+              duration={duration}
+              offset={-72}
+              className="btn btn-line mt-10"
+            >
+              Get in Touch
+              <span aria-hidden="true">→</span>
+            </Link>
           </motion.div>
+
+          <div className="min-w-0 lg:col-span-5 lg:col-start-8">
+            <ul className="border-t border-line">
+              {strengths.map((item, index) => (
+                <motion.li
+                  key={item.title}
+                  {...reveal(index * 0.06)}
+                  className="group border-b border-line py-6"
+                >
+                  <div className="flex gap-5">
+                    <span className="font-display text-xl text-fog transition-colors duration-300 group-hover:text-gold">
+                      0{index + 1}
+                    </span>
+                    <div>
+                      <h3 className="font-display text-[1.7rem] font-medium leading-none text-paper">
+                        {item.title}
+                      </h3>
+                      <p className="mt-3 text-sm leading-relaxed text-fog">{item.description}</p>
+                    </div>
+                  </div>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>

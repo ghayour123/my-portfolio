@@ -1,64 +1,43 @@
-import React, { Suspense, lazy } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Suspense, lazy } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
-// Lazy load components for better performance
-const Services = lazy(() => import("./components/Services"));
-const ServicesDetails = lazy(() => import("./components/ServicesDetails"));
-const Journey = lazy(() => import("./components/Journey"));
-const Pricing = lazy(() => import("./components/Pricing"));
-const Projects = lazy(() => import("./components/Projects"));
-const Footer = lazy(() => import("./components/Footer"));
 const About = lazy(() => import("./components/About"));
+const Skills = lazy(() => import("./components/Skills"));
+const Projects = lazy(() => import("./components/Projects"));
+const Journey = lazy(() => import("./components/Journey"));
+const Services = lazy(() => import("./components/Services"));
+const Contact = lazy(() => import("./components/Contact"));
 const FAQ = lazy(() => import("./components/FAQ"));
+const Footer = lazy(() => import("./components/Footer"));
 
-// Loading component
 const LoadingSpinner = () => (
-  <div className="min-h-screen flex items-center justify-center bg-[#11071F]">
-    <div className="w-12 h-12 border-4 border-purple-400 border-t-transparent rounded-full animate-spin"></div>
+  <div className="flex min-h-[40vh] items-center justify-center" role="status" aria-label="Loading">
+    <div className="spin" />
   </div>
-);
-// --- Home Page Component ---
-// This component contains all the main sections of the portfolio
-const HomePage = () => (
-  <>
-    <Hero />
-    <Suspense fallback={<LoadingSpinner />}>
-      <Services />
-      <About />
-      <Journey />
-      <Pricing />
-      <Projects />
-      <FAQ />
-      <Footer />
-    </Suspense>
-  </>
 );
 
 function App() {
   return (
-    <Router>
-      <div>
-        <Navbar />
-        <Routes>
-          {/* --- Main Portfolio Route --- */}
-          <Route path="/" element={<HomePage />} />
-          
-          {/* --- Services Details Route --- */}
-          <Route 
-            path="/services/:serviceId" 
-            element={
-              <Suspense fallback={<LoadingSpinner />}>
-                <ServicesDetails />
-              </Suspense>
-            } 
-          />
-        </Routes>
-      </div>
-    </Router>
+    <div className="min-h-screen bg-ink text-paper">
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
+      <Navbar />
+      <main id="main" tabIndex={-1}>
+        <Hero />
+        <Suspense fallback={<LoadingSpinner />}>
+          <About />
+          <Skills />
+          <Projects />
+          <Journey />
+          <Services />
+          <Contact />
+          <FAQ />
+          <Footer />
+        </Suspense>
+      </main>
+    </div>
   );
 }
 
